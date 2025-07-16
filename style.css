@@ -6,11 +6,11 @@
   padding: 0;
 }
 
-/* Contenedor principal de la malla */
+/* Contenedor principal de la malla: grid con 10 columnas para 10 semestres */
 .malla {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 10px;
+  gap: 15px;
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -26,7 +26,7 @@
   gap: 10px;
 }
 
-/* Título del semestre */
+/* Título de semestre */
 .semestre .titulo-semestre {
   text-align: center;
   font-weight: 700;
@@ -37,15 +37,18 @@
   margin-bottom: 10px;
 }
 
-/* Cada bloque de ramos (puede ser un semestre o agrupación) */
+/* Bloque que agrupa ramos dentro del semestre */
 .bloque {
   background: #f9e9e9; /* fondo suave rosado */
   border-radius: 6px;
   padding: 8px;
   box-shadow: inset 0 0 5px rgba(183, 28, 28, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-/* Estilo general para cada ramo */
+/* Cada ramo: bloque rectangular */
 .ramo {
   padding: 10px 8px;
   border-radius: 5px;
@@ -56,6 +59,8 @@
   box-shadow: 0 1px 3px rgba(183, 28, 28, 0.4);
   transition: background-color 0.3s ease, color 0.3s ease;
   text-align: center;
+  min-width: 120px;
+  white-space: nowrap;
 }
 
 /* Estado disponible: rosado claro */
@@ -81,7 +86,7 @@
   box-shadow: none;
 }
 
-/* Tooltip para mostrar prerequisitos */
+/* Tooltip para prerequisitos */
 .ramo[title]:hover::after {
   content: attr(title);
   position: absolute;
@@ -99,24 +104,27 @@
   pointer-events: none;
 }
 
-/* Para manejar que los tooltips no se corten */
+/* Para evitar que tooltip se corte */
 .ramo[title] {
   position: relative;
 }
 
-/* Responsive para pantallas pequeñas */
-@media (max-width: 1000px) {
+/* Responsive: reduce columnas en pantallas pequeñas */
+@media (max-width: 1100px) {
   .malla {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .malla {
     grid-template-columns: repeat(2, 1fr);
   }
   .ramo {
+    min-width: auto;
     font-size: 12px;
     padding: 8px 6px;
+    white-space: normal;
   }
 }
+
