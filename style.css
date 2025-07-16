@@ -1,30 +1,122 @@
-.ramo {
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 5px;
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal de la malla */
+.malla {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Cada semestre (columna) */
+.semestre {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Título del semestre */
+.semestre .titulo-semestre {
   text-align: center;
-  transition: background-color 0.3s, color 0.3s;
+  font-weight: 700;
+  font-size: 14px;
+  color: #7b1a1a; /* rojo oscuro */
+  padding-bottom: 8px;
+  border-bottom: 2px solid #b71c1c;
+  margin-bottom: 10px;
 }
 
-/* Disponible para seleccionar */
+/* Cada bloque de ramos (puede ser un semestre o agrupación) */
+.bloque {
+  background: #f9e9e9; /* fondo suave rosado */
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: inset 0 0 5px rgba(183, 28, 28, 0.15);
+}
+
+/* Estilo general para cada ramo */
+.ramo {
+  padding: 10px 8px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(183, 28, 28, 0.4);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+}
+
+/* Estado disponible: rosado claro */
 .ramo.disponible {
-  background-color: #f8bbd0; /* rosado claro */
-  color: #333;
+  background-color: #f8bbd0; /* rosa claro */
+  color: #4a1414; /* rojo oscuro para texto */
 }
 
-/* Aprobado */
+/* Estado aprobado: rojo intenso y texto blanco tachado */
 .ramo.aprobado {
   background-color: #b71c1c; /* rojo fuerte */
   color: white;
   text-decoration: line-through;
+  cursor: default;
+  box-shadow: 0 0 8px rgba(183, 28, 28, 0.8);
 }
 
-/* Bloqueado */
+/* Estado bloqueado: gris rosado, texto gris y cursor no permitido */
 .ramo.bloqueado {
   background-color: #f2c3c3; /* rosita grisáceo claro */
-  color: #888;
+  color: #8b8b8b;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* Tooltip para mostrar prerequisitos */
+.ramo[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: #b71c1c;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  z-index: 10;
+  box-shadow: 0 0 6px rgba(183, 28, 28, 0.6);
+  pointer-events: none;
+}
 
+/* Para manejar que los tooltips no se corten */
+.ramo[title] {
+  position: relative;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 1000px) {
+  .malla {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .malla {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ramo {
+    font-size: 12px;
+    padding: 8px 6px;
+  }
+}
